@@ -9,8 +9,6 @@ import (
 	"io"
 	"os"
 	"time"
-
-	"github.com/mattn/go-isatty"
 )
 
 var (
@@ -58,7 +56,7 @@ func LoggerWithWriter(out io.Writer, notlogged ...string) HandlerFunc {
 	isTerm := true
 
 	if w, ok := out.(*os.File); !ok ||
-		(os.Getenv("TERM") == "dumb" || (!isatty.IsTerminal(w.Fd()) && !isatty.IsCygwinTerminal(w.Fd()))) ||
+		(os.Getenv("TERM") == "dumb" || (!isatty.IsTerminal(w.Fd()))) ||
 		disableColor {
 		isTerm = false
 	}
